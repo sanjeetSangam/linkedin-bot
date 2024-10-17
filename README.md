@@ -26,7 +26,7 @@ The app is designed to assist users with generating text and inserting it into a
 
 -   Run `npm install` to install dependencies
 -   Run [wxt](cci:4://file:///d:/CODES/PROJECTS/linkedin-bot/wxt.config.ts:0:0-6:0) to start the development server
--   npm run dev
+-   `npm run dev`
 
 ### Setup
 
