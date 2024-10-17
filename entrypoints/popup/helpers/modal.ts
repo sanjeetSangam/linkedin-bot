@@ -1,5 +1,6 @@
 import genIcon from "~/assets/generate.svg";
 
+// Open modal and focus on input
 export const openModal = (modal: HTMLDivElement, inputText: HTMLInputElement) => {
 	modal.classList.remove("hidden");
 	modal.style.display = "flex";
@@ -12,22 +13,20 @@ export const openModal = (modal: HTMLDivElement, inputText: HTMLInputElement) =>
 	inputText.focus();
 };
 
+// Reset modal state
 export const resetModal = (sharedState: any) => {
 	const { modal, generateBtn, insertBtn, inputText } = sharedState;
 
 	modal.classList.add("hidden");
-
-	const messagesDiv = document.getElementById("messages") as HTMLDivElement;
-	messagesDiv.innerHTML = "";
-
+	document.getElementById("messages")!.innerHTML = "";
 	inputText.value = "";
-
 	insertBtn.classList.replace("flex", "hidden");
 
 	generateBtn.innerHTML = `<img src="${genIcon}" alt="Generate"> <b>Generate</b>`;
 	generateBtn.disabled = false;
 };
 
+// Handle clicks outside modal
 export const handleClickOutsideModal = (event: MouseEvent, sharedState: any) => {
 	const { modal, modalContent } = sharedState;
 	const target = event.target as HTMLElement;

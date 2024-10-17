@@ -13,6 +13,7 @@ export default defineContentScript({
 	matches: ["*://*.linkedin.com/*"],
 
 	main() {
+		// Append modal HTML to the body
 		document.body.insertAdjacentHTML("beforeend", createModalHtml(insertIconSrc, genIcon));
 
 		const modal = document.getElementById("custom-modal") as HTMLDivElement;
@@ -34,12 +35,11 @@ export default defineContentScript({
 			inputText,
 		};
 
+		// Event listeners for various actions
 		document.addEventListener("click", (event) => handleMessageFormClick(event, sharedState));
-
 		document.addEventListener("click", (event) => handleClickOutsideModal(event, sharedState));
 
 		generateBtn.addEventListener("click", (e) => handleGenerateClick(e, sharedState));
-
 		insertBtn.addEventListener("click", () => handleInsertClick(sharedState));
 	},
 });

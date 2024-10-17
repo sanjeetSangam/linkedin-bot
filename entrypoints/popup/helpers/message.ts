@@ -2,6 +2,7 @@ import { openModal, resetModal } from "./modal";
 import editIcon from "~/assets/edit.svg";
 import reGenIcon from "~/assets/regenerate.svg";
 
+// Handle clicks on message form
 export const handleMessageFormClick = (event: MouseEvent, sharedState: any) => {
 	const { modal, inputText } = sharedState;
 	const target = event.target as HTMLElement;
@@ -14,7 +15,7 @@ export const handleMessageFormClick = (event: MouseEvent, sharedState: any) => {
 
 		if (!sharedState.parentElement) return;
 
-		if (sharedState.parentElement && !sharedState.parentElement.querySelector(".edit-icon")) {
+		if (!sharedState.parentElement.querySelector(".edit-icon")) {
 			insertIcon(editIcon, sharedState.parentElement, (e) => {
 				e.stopPropagation();
 				openModal(modal, inputText);
@@ -28,6 +29,7 @@ export const handleMessageFormClick = (event: MouseEvent, sharedState: any) => {
 	}
 };
 
+// Handle generate button click
 export const handleGenerateClick = (e: MouseEvent, sharedState: any) => {
 	e.stopPropagation();
 	const { inputText, generateBtn, insertBtn } = sharedState;
@@ -36,17 +38,17 @@ export const handleGenerateClick = (e: MouseEvent, sharedState: any) => {
 	if (!inputValue) return;
 
 	appendMessage(inputValue, "right");
-
 	generateBtn.disabled = true;
 
 	sharedState.lastGeneratedMessage = generateMessage();
 	appendMessage(sharedState.lastGeneratedMessage, "left");
 
-	generateBtn.innerHTML = `<img src="${reGenIcon}" alt="Regenerate" > <b>Regenerate</b>`;
+	generateBtn.innerHTML = `<img src="${reGenIcon}" alt="Regenerate"> <b>Regenerate</b>`;
 	inputText.value = "";
 	insertBtn.classList.replace("hidden", "flex");
 };
 
+// Handle insert button click
 export const handleInsertClick = (sharedState: any) => {
 	const { parentElement, lastGeneratedMessage } = sharedState;
 
@@ -65,23 +67,19 @@ export const handleInsertClick = (sharedState: any) => {
 		}
 
 		const emptyElement = (parentElement.children[0] as HTMLElement) ?? null;
-		if (
-			emptyElement &&
-			emptyElement.textContent !== null &&
-			emptyElement.textContent.trim() === ""
-		) {
+		if (emptyElement && emptyElement.textContent?.trim() === "") {
 			parentElement.removeChild(parentElement.children[0]);
 		}
 
 		parentElement.appendChild(messageParagraph);
-
 		resetModal(sharedState);
 	}
 };
 
+// Generate a static message
 export const generateMessage = () => {
 	const messages = [
-		"Thank you for the opportunity! If you have any more questions or if there's anything else I can help you with, feel free to ask.",
+		"Thank you for the opportunity! If you have any more questions, feel free to ask.",
 		"Let's build something together!",
 		"I'm here to help!",
 		"How can I help you?",
@@ -89,9 +87,9 @@ export const generateMessage = () => {
 		"Let's get started!",
 	];
 	return messages[0];
-	// return messages[Math.floor(Math.random() * messages.length)];
 };
 
+// Insert icon in parent element
 export const insertIcon = (
 	iconSrc: string,
 	parent: HTMLElement,
@@ -119,10 +117,12 @@ export const insertIcon = (
 	icon.addEventListener("click", clickHandler);
 };
 
+// Append message to messages div
 export const appendMessage = (message: string, align: "left" | "right") => {
 	const messagesDiv = document.getElementById("messages") as HTMLDivElement;
 	const messageDiv = document.createElement("div");
 	messageDiv.textContent = message;
+
 	Object.assign(messageDiv.style, {
 		backgroundColor: align === "right" ? "#DFE1E7" : "#DBEAFE",
 		color: "#666D80",
@@ -133,6 +133,7 @@ export const appendMessage = (message: string, align: "left" | "right") => {
 		alignSelf: align === "right" ? "flex-end" : "flex-start",
 		margin: align === "right" ? "0 0 0 auto" : "0 auto 0 0",
 	});
+
 	messagesDiv.appendChild(messageDiv);
 	messagesDiv.scrollTop = messagesDiv.scrollHeight;
 };
