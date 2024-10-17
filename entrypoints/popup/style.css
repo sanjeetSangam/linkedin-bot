@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.generate-btn {
+		@apply bg-blue-500 text-white border border-blue-500 rounded-lg cursor-pointer flex items-center p-2;
+	}
+
+	#custom-modal .generate-btn img {
+		@apply align-middle !min-w-6 !min-h-6 !max-w-6 !max-h-6;
+	}
+
+	.generate-btn:disabled {
+		@apply bg-gray-500 !cursor-not-allowed;
+	}
+
+	.insert-button {
+		@apply bg-white text-gray-600 border border-gray-600 rounded-lg cursor-pointer flex items-center p-2;
+		border: 1px solid #c1c7d0 !important;
+	}
+
+	#custom-modal button {
+		@apply px-6 py-3 flex gap-3 items-center justify-center;
+	}
+
+	#custom-modal .ai-bot-input {
+		@apply outline-none bg-transparent px-4 py-1.5;
+		border: 1px solid #c1c7d0 !important;
+		color: #666d80 !important;
+		box-shadow: 0px 2px 4px 0px #0000000f inset !important;
+		height: max-content;
+		font-size: 20px;
+		font-weight: 500;
+	}
+
+	#custom-modal .ai-bot-input::placeholder {
+		color: #9498a5 !important;
+	}
+
+	#custom-modal .ai-bot-input:focus,
+	#custom-modal .ai-bot-input:active,
+	#custom-modal .ai-bot-input:hover {
+		@apply outline-none bg-transparent;
+		border: 1px solid #c1c7d0 !important;
+	}
+}
